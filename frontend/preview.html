@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>StaffSync Nexus — Executive Dark Glass HRM</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: radial-gradient(circle at top right, #064e3b 0%, #090d16 50%); background-color: #090d16; color: #f8fafc; min-height: 100vh; }
+  .header { background: rgba(17, 24, 39, 0.88); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(148,163,184,0.18); padding: 14px 32px; display: flex; justify-content: space-between; align-items: center; }
+  .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 19px; }
+  .orb { width: 38px; height: 38px; border-radius: 12px; background: linear-gradient(135deg, #10b981, #06b6d4); color: #022c22; display: grid; place-items: center; font-weight: 900; }
+  .pills { display: flex; gap: 8px; }
+  .pill { background: transparent; color: #94a3b8; border: 1px solid transparent; padding: 8px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .pill.active, .pill:hover { background: rgba(16, 185, 129, 0.16); color: #34d399; border-color: rgba(16, 185, 129, 0.45); }
+  .container { max-width: 1220px; margin: 0 auto; padding: 26px 32px; }
+  .bento-hero { background: linear-gradient(135deg, rgba(16,185,129,0.18), rgba(6,182,212,0.12)); border: 1px solid rgba(16,185,129,0.35); border-radius: 20px; padding: 24px 28px; margin-bottom: 22px; display: flex; justify-content: space-between; align-items: center; }
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 22px; }
+  .kpi-box { background: rgba(17, 24, 39, 0.85); border: 1px solid rgba(16, 185, 129, 0.28); border-radius: 18px; padding: 18px; box-shadow: 0 10px 28px rgba(0,0,0,0.45); }
+  .kpi-val { font-size: 28px; font-weight: 800; color: #34d399; margin: 6px 0 4px; }
+  .grid-2 { display: grid; grid-template-columns: 1.5fr 1fr; gap: 18px; }
+  .glass-card { background: rgba(17, 24, 39, 0.85); border: 1px solid rgba(148,163,184,0.18); border-radius: 18px; padding: 20px; box-shadow: 0 10px 28px rgba(0,0,0,0.45); }
+  table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13.5px; }
+  th { text-align: left; padding: 10px; border-bottom: 1px solid rgba(52,211,153,0.3); color: #34d399; font-weight: 700; }
+  td { padding: 11px 10px; border-bottom: 1px solid rgba(148,163,184,0.12); color: #e2e8f0; }
+  .tag { padding: 4px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 700; }
+  .tag-em { background: rgba(16,185,129,0.2); color: #34d399; border: 1px solid rgba(16,185,129,0.4); }
+  .tag-cy { background: rgba(6,182,212,0.2); color: #22d3ee; border: 1px solid rgba(6,182,212,0.4); }
+  .tag-am { background: rgba(245,158,11,0.2); color: #fbbf24; border: 1px solid rgba(245,158,11,0.4); }
+  .kanban { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 12px; }
+  .k-col { background: rgba(31,41,55,0.65); border: 1px solid rgba(148,163,184,0.18); border-radius: 14px; padding: 14px; }
+  .k-card { background: #111827; border: 1px solid rgba(16,185,129,0.25); border-radius: 10px; padding: 12px; margin-top: 10px; }
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="brand">
+    <div class="orb">NX</div>
+    <div>StaffSync <span style="color:#34d399;">Nexus</span> <span style="font-size:11px;color:#94a3b8;font-weight:500;margin-left:6px;">VARIANT 2: DARK GLASS UI</span></div>
+  </div>
+  <nav class="pills">
+    <button class="pill active" id="nav-home" onclick="showTab('home')">Overview</button>
+    <button class="pill" id="nav-hr" onclick="showTab('hr')">HR Analytics</button>
+    <button class="pill" id="nav-mgr" onclick="showTab('mgr')">Manager Hub</button>
+    <button class="pill" id="nav-emp" onclick="showTab('emp')">Employee Hub</button>
+    <button class="pill" id="nav-leaves" onclick="showTab('leaves')">Leaves Kanban</button>
+    <button class="pill" id="nav-att" onclick="showTab('att')">Attendance</button>
+  </nav>
+  <span class="tag tag-em">JWT RBAC: Verified</span>
+</header>
+<div class="container" id="view-container"></div>
+<script>
+const views = {
+  home: `
+    <div class="bento-hero">
+      <div>
+        <span class="tag tag-cy">UI Variant 2 — Emerald &amp; Obsidian Glassmorphic Command Center</span>
+        <h2 style="font-size:24px;margin:10px 0 6px;">StaffSync Nexus — Autonomous Workforce &amp; HR Operating System</h2>
+        <p style="font-size:13.5px;color:#cbd5e1;max-width:680px;">Full-stack MERN architecture featuring Redux Toolkit state slices, JWT Role-Based Access Control, 8 indexed MongoDB collections, and real-time leave &amp; attendance telemetry.</p>
+      </div>
+      <div style="background:rgba(15,23,42,0.75);border:1px solid rgba(52,211,153,0.35);padding:14px 18px;border-radius:14px;">
+        <div style="font-size:12px;color:#34d399;font-weight:700;">🔗 Mentor Review Endpoints</div>
+        <div style="font-size:12px;color:#e2e8f0;margin-top:4px;">Live Demo: staffsync-hrm-demo.vercel.app</div>
+        <div style="font-size:12px;color:#e2e8f0;margin-top:2px;">GitHub: Parth07072006/StaffSync-HRM-MERN</div>
+      </div>
+    </div>
+    <div class="kpi-row">
+      <div class="kpi-box"><div style="font-size:12px;color:#94a3b8;">Active Employees</div><div class="kpi-val">48</div><div style="font-size:12px;color:#34d399;">+6 Onboarded This Quarter</div></div>
+      <div class="kpi-box"><div style="font-size:12px;color:#94a3b8;">Shift Punctuality</div><div class="kpi-val">94.2%</div><div style="font-size:12px;color:#22d3ee;">Real-Time Biometric Sync</div></div>
+      <div class="kpi-box"><div style="font-size:12px;color:#94a3b8;">Leave Approval SLA</div><div class="kpi-val">1.8 hrs</div><div style="font-size:12px;color:#fbbf24;">2 Requests in Queue</div></div>
+      <div class="kpi-box"><div style="font-size:12px;color:#94a3b8;">Training Velocity</div><div class="kpi-val">89.4%</div><div style="font-size:12px;color:#34d399;">6 Active Skill Tracks</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="glass-card">
+        <h3 style="font-size:16px;color:#34d399;">Workforce Performance &amp; Role Matrix</h3>
+        <table>
+          <thead><tr><th>Employee ID</th><th>Name</th><th>Department</th><th>Role</th><th>Score</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><code>EMP-1041</code></td><td>Parth Dubey</td><td>Engineering</td><td>Full Stack MERN</td><td>95%</td><td><span class="tag tag-em">Active</span></td></tr>
+            <tr><td><code>EMP-1042</code></td><td>Ishita Nair</td><td>Product Design</td><td>UI/UX Lead</td><td>91%</td><td><span class="tag tag-em">Active</span></td></tr>
+            <tr><td><code>EMP-1043</code></td><td>Kabir Deshmukh</td><td>Engineering</td><td>Node.js Engineer</td><td>89%</td><td><span class="tag tag-cy">Remote</span></td></tr>
+            <tr><td><code>MGR-201</code></td><td>Rohan Kulkarni</td><td>Engineering</td><td>Eng. Manager</td><td>96%</td><td><span class="tag tag-em">Manager</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="glass-card">
+        <h3 style="font-size:16px;color:#22d3ee;">Live Organization Broadcast Feed</h3>
+        <div style="margin-top:12px;padding:12px;background:rgba(31,41,55,0.7);border-left:3px solid #34d399;border-radius:8px;">
+          <div style="font-weight:700;font-size:13.5px;">📌 Diwali Bonus &amp; Annual Townhall</div>
+          <div style="font-size:12px;color:#94a3b8;margin-top:4px;">Posted by Ananya Verma (HR) &bull; Pinned Broadcast</div>
+        </div>
+        <div style="margin-top:10px;padding:12px;background:rgba(31,41,55,0.7);border-left:3px solid #22d3ee;border-radius:8px;">
+          <div style="font-weight:700;font-size:13.5px;">🎓 MERN Security &amp; JWT RBAC Workshop</div>
+          <div style="font-size:12px;color:#94a3b8;margin-top:4px;">Mandatory engineering training starting Nov 2, 2026.</div>
+        </div>
+      </div>
+    </div>
+  `,
+  hr: `
+    <h2 style="font-size:21px;margin-bottom:14px;color:#34d399;">🏛️ HR Executive Analytics, Payroll &amp; Directory Control</h2>
+    <div class="kpi-row">
+      <div class="kpi-box"><div style="font-size:12px;color:#94a3b8;">Total Collections</div><div class="kpi-val">8 Schemas</div><div style="font-size:12px;color:#34d399;">Indexed in MongoDB</div></div>
+      <div class="kpi-box"><div style="font-size:12px;color:#94a3b8;">Monthly Payroll</div><div class="kpi-val">₹42.6L</div><div style="font-size:12px;color:#22d3ee;">100% Automated</div></div>
+      <div class="kpi-box"><div style="font-size:12px;color:#94a3b8;">Active Managers</div><div class="kpi-val">6 Leads</div><div style="font-size:12px;color:#34d399;">Cross-Department</div></div>
+      <div class="kpi-box"><div style="font-size:12px;color:#94a3b8;">Security Audit</div><div class="kpi-val">JWT + RBAC</div><div style="font-size:12px;color:#34d399;">bcryptjs 10-Salt</div></div>
+    </div>
+    <div class="glass-card">
+      <h3 style="font-size:16px;color:#34d399;">Master Employee &amp; Manager Records</h3>
+      <table>
+        <thead><tr><th>Code</th><th>Name</th><th>Email</th><th>Department</th><th>Designation</th><th>Compensation</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>EMP-1041</td><td>Parth Dubey</td><td>parth.dubey@staffsync.io</td><td>Engineering</td><td>Full Stack MERN Dev</td><td>₹95,000</td><td><span class="tag tag-em">Active</span></td></tr>
+          <tr><td>EMP-1042</td><td>Ishita Nair</td><td>ishita.nair@staffsync.io</td><td>Product Design</td><td>Senior UI/UX Designer</td><td>₹88,000</td><td><span class="tag tag-em">Active</span></td></tr>
+          <tr><td>EMP-1044</td><td>Meera Joshi</td><td>meera.joshi@staffsync.io</td><td>QA Automation</td><td>QA Lead</td><td>₹82,000</td><td><span class="tag tag-am">On Leave</span></td></tr>
+          <tr><td>MGR-201</td><td>Rohan Kulkarni</td><td>rohan.manager@staffsync.io</td><td>Engineering</td><td>Engineering Manager</td><td>₹1,35,000</td><td><span class="tag tag-cy">Manager</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  `,
+  mgr: `
+    <h2 style="font-size:21px;margin-bottom:14px;color:#22d3ee;">📊 Manager Command Hub — Team Performance &amp; Leave Approvals</h2>
+    <div class="grid-2">
+      <div class="glass-card">
+        <h3 style="font-size:16px;color:#34d399;">Team Leave Approval Queue</h3>
+        <table>
+          <thead><tr><th>Team Member</th><th>Leave Type</th><th>Duration</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Parth Dubey</td><td>Casual Leave</td><td>Nov 04 – Nov 05 (2d)</td><td><span class="tag tag-em">✓ Approved</span></td></tr>
+            <tr><td>Meera Joshi</td><td>Sick Leave</td><td>Oct 26 – Oct 27 (2d)</td><td><span class="tag tag-am">Pending Action</span></td></tr>
+            <tr><td>Kabir Deshmukh</td><td>Work From Home</td><td>Nov 10 – Nov 12 (3d)</td><td><span class="tag tag-am">Pending Action</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="glass-card">
+        <h3 style="font-size:16px;color:#22d3ee;">Department Training Cohorts</h3>
+        <div style="margin-top:12px;padding:12px;background:#1f2937;border-radius:10px;">
+          <div style="font-weight:700;color:#34d399;">Advanced MERN Architecture &amp; Indexing</div>
+          <div style="font-size:12px;color:#94a3b8;margin-top:4px;">Instructor: Rohan Kulkarni &bull; 85% Team Completion</div>
+        </div>
+        <div style="margin-top:10px;padding:12px;background:#1f2937;border-radius:10px;">
+          <div style="font-weight:700;color:#22d3ee;">JWT Security &amp; OWASP API Protection</div>
+          <div style="font-size:12px;color:#94a3b8;margin-top:4px;">Instructor: Siddharth Mehta &bull; 78% Team Completion</div>
+        </div>
+      </div>
+    </div>
+  `,
+  emp: `
+    <h2 style="font-size:21px;margin-bottom:14px;color:#34d399;">👤 Employee Self-Service Portal — Parth Dubey (EMP-1041)</h2>
+    <div class="kpi-row">
+      <div class="kpi-box"><div style="font-size:12px;color:#94a3b8;">Leave Balance</div><div class="kpi-val">24 Days</div><div style="font-size:12px;color:#34d399;">Casual + Sick + Earned</div></div>
+      <div class="kpi-box"><div style="font-size:12px;color:#94a3b8;">Days Logged</div><div class="kpi-val">21 / 22</div><div style="font-size:12px;color:#22d3ee;">95.4% Attendance</div></div>
+      <div class="kpi-box"><div style="font-size:12px;color:#94a3b8;">KPI Rating</div><div class="kpi-val">95%</div><div style="font-size:12px;color:#34d399;">Top Performer</div></div>
+      <div class="kpi-box"><div style="font-size:12px;color:#94a3b8;">Skill Tracks</div><div class="kpi-val">2 Enrolled</div><div style="font-size:12px;color:#22d3ee;">MERN &amp; Security</div></div>
+    </div>
+  `,
+  leaves: `
+    <h2 style="font-size:21px;margin-bottom:14px;color:#34d399;">🗓️ Leave Workflow Kanban Board (Real-Time Redux Sync)</h2>
+    <div class="kanban">
+      <div class="k-col">
+        <div style="font-weight:800;color:#fbbf24;">⏳ PENDING (2)</div>
+        <div class="k-card"><div style="font-weight:700;">Kabir Deshmukh</div><div style="font-size:12px;color:#22d3ee;">Work From Home &bull; 3 Days</div></div>
+        <div class="k-card"><div style="font-weight:700;">Meera Joshi</div><div style="font-size:12px;color:#22d3ee;">Sick Leave &bull; 2 Days</div></div>
+      </div>
+      <div class="k-col">
+        <div style="font-weight:800;color:#34d399;">✓ APPROVED (2)</div>
+        <div class="k-card"><div style="font-weight:700;">Parth Dubey</div><div style="font-size:12px;color:#34d399;">Casual Leave &bull; 2 Days</div></div>
+        <div class="k-card"><div style="font-weight:700;">Ishita Nair</div><div style="font-size:12px;color:#34d399;">Earned Leave &bull; 4 Days</div></div>
+      </div>
+      <div class="k-col">
+        <div style="font-weight:800;color:#f87171;">✕ REJECTED (1)</div>
+        <div class="k-card"><div style="font-weight:700;">Aarav Sharma</div><div style="font-size:12px;color:#f87171;">Casual Leave &bull; Release Freeze</div></div>
+      </div>
+    </div>
+  `,
+  att: `
+    <h2 style="font-size:21px;margin-bottom:14px;color:#22d3ee;">⏱️ Biometric &amp; Remote Attendance Logs</h2>
+    <div class="glass-card">
+      <table>
+        <thead><tr><th>Date</th><th>Employee</th><th>Department</th><th>Check-In</th><th>Check-Out</th><th>Work Hours</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>2026-10-26</td><td>Parth Dubey</td><td>Engineering</td><td>09:02 AM</td><td>06:15 PM</td><td>9.2 hrs</td><td><span class="tag tag-em">Present</span></td></tr>
+          <tr><td>2026-10-26</td><td>Ishita Nair</td><td>Product Design</td><td>09:14 AM</td><td>06:05 PM</td><td>8.8 hrs</td><td><span class="tag tag-em">Present</span></td></tr>
+          <tr><td>2026-10-26</td><td>Kabir Deshmukh</td><td>Engineering</td><td>09:30 AM</td><td>06:30 PM</td><td>9.0 hrs</td><td><span class="tag tag-cy">Remote</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  `
+};
+function showTab(key) {
+  document.getElementById('view-container').innerHTML = views[key];
+  document.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('nav-' + key);
+  if (btn) btn.classList.add('active');
+}
+showTab('home');
+</script>
+</body>
+</html>
